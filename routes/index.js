@@ -8,21 +8,14 @@ module.exports = (app) => {
 		message: 'Welcomee',
 	}));
 
+	//company
 	app.post('/api/company', companyController.create);
-
-	app.get('/api/company', function(req, res) {
-		models.Company.findAll({
-			include: [models.Employee]
-		}).then(function(companies){
-			res.send({
-				message: 'success',
-				status: 200,
-				data: companies}
-			);
-		});
-	});
+	app.get('/api/company', companyController.all);
 
 	app.post('/api/auth/register', userController.create);
 	app.post('/api/auth', authController.sign_in);
+
+	//users
 	app.get('/api/users', userController.all_user);
+	app.post('/api/register/user', userController.create);
 }
